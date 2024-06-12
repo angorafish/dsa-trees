@@ -17,58 +17,66 @@ class BinaryTree {
    * the length of the shortest path from the root to a leaf. */
 
   minDepth() {
+    if (!this.root) return 0;
 
+    function traverse(node) {
+      if (!node) return Infinity;
+      if (!node.left && !node.right) return 1;
+      return 1 + Math.min(traverse(node.left), traverse(node.right));
+    }
+    return traverse(this.root);
   }
 
   /** maxDepth(): return the maximum depth of the tree -- that is,
    * the length of the longest path from the root to a leaf. */
 
   maxDepth() {
+    if (!this.root) return 0;
 
+    function traverse(node) {
+      if (!node) return 0;
+      return 1 + Math.max(traverse(node.left), traverse(node.right));
+    }
+    return traverse(this.root);
   }
 
   /** maxSum(): return the maximum sum you can obtain by traveling along a path in the tree.
    * The path doesn't need to start at the root, but you can't visit a node more than once. */
 
   maxSum() {
-
-  }
+    let maxSum = 0;
+  
+    function traverse(node) {
+      if (!node) return 0;
+      const leftSum = Math.max(0, traverse(node.left));
+      const rightSum = Math.max(0, traverse(node.right));
+      maxSum = Math.max(maxSum, node.val + leftSum + rightSum);
+      return node.val + Math.max(leftSum, rightSum);
+    }
+    traverse(this.root);
+    return maxSum;
+    }
+  
 
   /** nextLarger(lowerBound): return the smallest value in the tree
    * which is larger than lowerBound. Return null if no such value exists. */
 
+  
   nextLarger(lowerBound) {
+    if (!this.root) return null;
 
-  }
+    let nextLargerValue = null;
 
-  /** Further study!
-   * areCousins(node1, node2): determine whether two nodes are cousins
-   * (i.e. are at the same level but have different parents. ) */
-
-  areCousins(node1, node2) {
-
-  }
-
-  /** Further study!
-   * serialize(tree): serialize the BinaryTree object tree into a string. */
-
-  static serialize() {
-
-  }
-
-  /** Further study!
-   * deserialize(stringTree): deserialize stringTree into a BinaryTree object. */
-
-  static deserialize() {
-
-  }
-
-  /** Further study!
-   * lowestCommonAncestor(node1, node2): find the lowest common ancestor
-   * of two nodes in a binary tree. */
-
-  lowestCommonAncestor(node1, node2) {
-    
+    function traverse(node) {
+      if (!node) return;
+      if (node.val > lowerBound && (nextLargerValue === null || node.val < nextLargerValue)) {
+        nextLargerValue = node.val;
+      }
+      traverse(node.left);
+      traverse(node.right);
+    }
+    traverse(this.root);
+    return nextLargerValue;
   }
 }
 

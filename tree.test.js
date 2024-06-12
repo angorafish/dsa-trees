@@ -1,4 +1,4 @@
-const { Tree, TreeNode, BinaryTree, BinaryTreeNode } = require("./trees");
+const { Tree, TreeNode } = require("./tree");
 
 let smallTree;
 let largeTree;
@@ -76,32 +76,5 @@ describe("Tree class methods", function() {
     it("counts nodes in an empty tree", function() {
       expect(emptyTree.numGreater(0)).toEqual(0);
     });
-  });
-});
-
-describe("BinaryTree class methods", () => {
-  let binaryTree;
-
-  beforeEach(() => {
-    let n1 = new BinaryTreeNode(1);
-    let n2 = new BinaryTreeNode(2);
-    let n3 = new BinaryTreeNode(3, n1, n2);
-    binaryTree = new BinaryTree(n3);
-  });
-
-  test("minDepth returns the minimum depth of the binary tree", () => {
-    expect(binaryTree.minDepth()).toBe(2);
-  });
-
-  test("maxDepth returns the maximum depth of the binary tree", () => {
-    expect(binaryTree.maxDepth()).toBe(2);
-  });
-
-  test("maxSum returns the maximum path sum in the binary tree", () => {
-    expect(binaryTree.maxSum()).toBe(6);
-  });
-
-  test("nextLarger returns the value of the node that is the next larger element than x", () => {
-    expect(binaryTree.nextLarger(1)).toBe(2);
   });
 });
